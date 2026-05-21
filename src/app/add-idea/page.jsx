@@ -15,7 +15,7 @@ const AddStartupPage = () => {
 
     console.log(startup)
 
-    const res = await fetch('http://localhost:8000/ideas', {
+    const res = await fetch('http://localhost:8000/my-ideas', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
