@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-const EditModal = ({ idea }) => {
+const EditModal = ({ idea, collection   }) => {
     const [open, setOpen] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -10,7 +10,7 @@ const EditModal = ({ idea }) => {
         const formData = new FormData(e.currentTarget)
         const updated = Object.fromEntries(formData.entries())
 
-        await fetch(`http://localhost:8000/ideas/${idea._id}`, {
+        await fetch(`http://localhost:8000/${collection}/${idea._id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(updated)

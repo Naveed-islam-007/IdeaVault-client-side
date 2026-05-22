@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-const CommentModal = ({ ideaId }) => {
+const CommentModal = ({ ideaId, collection = "ideas" }) => {
     const [open, setOpen] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -10,7 +10,7 @@ const CommentModal = ({ ideaId }) => {
         const formData = new FormData(e.currentTarget)
         const comment = Object.fromEntries(formData.entries())
 
-        await fetch(`http://localhost:8000/ideas/${ideaId}/comments`, {
+        await fetch(`http://localhost:8000/${collection}/${ideaId}/comments`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(comment)

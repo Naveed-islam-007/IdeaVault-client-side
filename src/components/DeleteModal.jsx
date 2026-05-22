@@ -3,16 +3,16 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-const DeleteModal = ({ ideaId }) => {
+const DeleteModal = ({ ideaId, collection = "ideas" }) => {
     const [open, setOpen] = useState(false)
     const router = useRouter()
 
     const handleDelete = async () => {
-        await fetch(`http://localhost:8000/ideas/${ideaId}`, {
+        await fetch(`http://localhost:8000/${collection}/${ideaId}`, {
             method: 'DELETE'
         })
         setOpen(false)
-        router.push('/ideas')
+        router.push(`/${collection}`)
     }
 
     return (

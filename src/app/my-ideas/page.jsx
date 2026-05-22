@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import React from 'react';
 
-const MyIdeas = async() => {
-   const res = await fetch('http://localhost:8000/my-ideas')
+const MyIdeasPage = async () => {
+    const res = await fetch('http://localhost:8000/my-ideas')
     const ideas = await res.json()
 
     return (
         <div className="p-5 max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold mb-6">Startup Ideas</h1>
+            <h1 className="text-2xl font-bold mb-6">My Ideas</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {ideas.map(idea => (
@@ -20,13 +20,12 @@ const MyIdeas = async() => {
                         <h2 className="text-lg font-bold text-gray-800">{idea.startupName}</h2>
                         <p className="text-sm text-gray-500 italic">{idea.tagline}</p>
                         <p className="text-sm text-gray-600 line-clamp-3">{idea.problem}</p>
-                        <Link href={`/ideas/${idea._id}`}>Enter</Link>
+                        <Link href={`/my-ideas/${idea._id}`}>View Details</Link>
                     </div>
                 ))}
             </div>
         </div>
     );
 };
- 
 
-export default MyIdeas;
+export default MyIdeasPage;
