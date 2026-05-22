@@ -20,8 +20,26 @@ const RegisterPage = () => {
     if (data) {
       window.location.href = "/";
     } else {
-      console.log(error); // 👈 IMPORTANT for debugging
+      console.log(error);
       alert(error?.message || "error");
+    }
+  };
+
+ 
+  const handleGoogleAuth = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        console.log(error);
+        alert(error?.message || "Google auth failed");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Google auth error");
     }
   };
 
@@ -32,7 +50,6 @@ const RegisterPage = () => {
 
           <form onSubmit={handleRegister} className="space-y-4">
 
-            {/* Name */}
             <input
               name="name"
               type="text"
@@ -41,7 +58,6 @@ const RegisterPage = () => {
               required
             />
 
-            {/* Email */}
             <input
               name="email"
               type="email"
@@ -50,7 +66,6 @@ const RegisterPage = () => {
               required
             />
 
-            {/* Photo URL */}
             <input
               name="image"
               type="text"
@@ -58,7 +73,6 @@ const RegisterPage = () => {
               className="input input-bordered w-full"
             />
 
-            {/* Password */}
             <input
               name="password"
               type="password"
@@ -70,12 +84,20 @@ const RegisterPage = () => {
             <button className="btn btn-primary w-full">
               Register
             </button>
-
           </form>
 
           <div className="divider">OR</div>
 
-          <p className="text-center text-sm">
+         
+          <button
+            onClick={handleGoogleAuth}
+            className="btn btn-outline w-full flex items-center gap-2"
+          >
+           
+            Continue with Google
+          </button>
+
+          <p className="text-center text-sm mt-4">
             Already have an account?{" "}
             <Link href="/login" className="text-primary">
               Login

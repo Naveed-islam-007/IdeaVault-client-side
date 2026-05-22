@@ -23,14 +23,30 @@ const LoginPage = () => {
     }
   };
 
+  // 👇 Google login handler
+  const handleGoogleLogin = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        console.log(error);
+        alert(error?.message || "Google login failed");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Google login error");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="card w-full max-w-md bg-base-100 shadow-2xl">
         <div className="card-body">
 
           <form onSubmit={handleLogin} className="space-y-4">
-
-            {/* Email */}
             <input
               name="email"
               type="email"
@@ -39,7 +55,6 @@ const LoginPage = () => {
               required
             />
 
-            {/* Password */}
             <input
               name="password"
               type="password"
@@ -51,13 +66,21 @@ const LoginPage = () => {
             <button className="btn btn-primary w-full">
               Login
             </button>
-
           </form>
 
           <div className="divider">OR</div>
 
-          <p className="text-center text-sm">
-            Don&apos;t have an account?{" "}
+          {/* Google Login Button */}
+          <button
+            onClick={handleGoogleLogin}
+            className="btn btn-outline w-full flex items-center gap-2"
+          >
+           
+            Continue with Google
+          </button>
+
+          <p className="text-center text-sm mt-4">
+            Dont have an account?{" "}
             <Link href="/register" className="text-primary">
               Register
             </Link>
